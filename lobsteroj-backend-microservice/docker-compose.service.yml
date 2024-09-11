@@ -1,0 +1,54 @@
+version: '3'
+services:
+  lobsteroj-backend-gateway:
+    container_name: lobsteroj-backend-gateway
+    build:
+      context: ./lobsteroj-backend-gateway
+      dockerfile: Dockerfile
+    ports:
+      - "8101:8101"
+    networks:
+      - mynetwork
+
+  lobsteroj-backend-user-service:
+    container_name: lobsteroj-backend-user-service
+    build:
+      context: ./lobsteroj-backend-user-service
+      dockerfile: Dockerfile
+    ports:
+      - "8102:8102"
+    networks:
+      - mynetwork
+    depends_on:
+      - lobsteroj-backend-gateway
+
+  lobsteroj-backend-question-service:
+    container_name: lobsteroj-backend-question-service
+    build:
+      context: ./lobsteroj-backend-question-service
+      dockerfile: Dockerfile
+    ports:
+      - "8103:8103"
+    networks:
+      - mynetwork
+    depends_on:
+      - lobsteroj-backend-user-service
+      - lobsteroj-backend-gateway
+
+  lobsteroj-backend-judge-service:
+    container_name: lobsteroj-backend-judge-service
+    build:
+      context: ./lobsteroj-backend-judge-service
+      dockerfile: Dockerfile
+    ports:
+      - "8104:8104"
+    networks:
+      - mynetwork
+    depends_on:
+      - lobsteroj-backend-user-service
+      - lobsteroj-backend-question-service
+      - lobsteroj-backend-gateway
+
+# 网络，不定义的话就是默认网络
+networks:
+  mynetwork:
