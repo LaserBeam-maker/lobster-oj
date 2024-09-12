@@ -1,6 +1,6 @@
 package com.yao.lobsterojbackendmodel.model.dto.questionsubmit;
 
-import com.yupi.yuojbackendcommon.common.PageRequest;
+import com.yao.lobsterojbackendcommon.common.PageRequest;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
